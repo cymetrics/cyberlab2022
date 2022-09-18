@@ -4,7 +4,9 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 && \
     apt-get install -y mariadb-server mariadb-client php php-mysqli \
-    php-gd libapache2-mod-php wget git vim zip 
+    php-gd libapache2-mod-php wget git vim zip curl sudo
+
+RUN curl -fsSL https://code-server.dev/install.sh | sh 
 
 WORKDIR /var/www
 RUN wget https://github.com/ethicalhack3r/DVWA/archive/master.zip && \
