@@ -77,6 +77,22 @@ vim /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 SecRule ARGS "@rx <script>" "id:00123,deny,status:404"
 ```
 
+修改設定檔案 `security2.conf`
+
+```bash
+vim /etc/apache2/mods-enabled/security2.conf
+```
+
+把自建的規則加入清單
+```
+IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
+```
+
+註解掉預設規則
+```
+# IncludeOptional /usr/share/modsecurity-crs/*.load
+```
+
 #### 3. 移除版本資訊
 
 修改設定檔案 `security.conf`
