@@ -285,7 +285,7 @@ MainRule "msg:demo " " rx:<script>"  "mz:ARGS " "s:$XSS:100" id:00123;
 vim /etc/nginx/nginx.conf
 ```
 
-在 `nginx.conf` 中新增一筆規則引用
+在 `nginx.conf` 中引用核心規則
 
 ```
 http {
