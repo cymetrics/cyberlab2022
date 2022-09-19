@@ -19,13 +19,13 @@ or
 ```bash
 docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin/bash
 ```
+#### 3. 開啟 web server 
 
-啟動 web server 
 ```bash
 /tmp/start.sh
 ```
-## Lab 2: ModSecurity
 
+## Lab 2: ModSecurity
 
 #### 1. 安裝 ModSecurity
 
@@ -106,6 +106,11 @@ ServerSignature 改成 `off` ServerTokens 改成 `Prod`
 ```
 ServerSignature Off
 ServerTokens Prod
+```
+
+#### 4. 開啟 web server 
+```
+/tmp/start.sh
 ```
 
 ## Lab 3: NAXSI
@@ -273,7 +278,7 @@ CheckRule "$XSS >= 90" BLOCK;
 vim /etc/nginx/naxsi_core.rules
 ```
 
-新增一筆規則, 並註解掉其他規則
+新增一筆規則
 
 ```
 MainRule "msg:demo " " rx:<script>"  "mz:ARGS " "s:$XSS:100" id:00123;
@@ -298,7 +303,6 @@ http {
 ```
 /tmp/start.sh
 ```
-
 
 ## Command cheatsheet
 
