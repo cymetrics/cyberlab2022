@@ -68,13 +68,13 @@ SecRuleEngine On
 #### 2. 自訂規則
 
 ```bash
-SecRule ARGS "@rx <script>" "id:00123,deny,status:404"
+vim /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 ```
 
 在新增的 `REQUEST-1001-DEMO.conf` 寫入
 
 ```
-IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
+SecRule ARGS "@rx <script>" "id:00123,deny,status:404"
 ```
 
 #### 3. 移除版本資訊
