@@ -237,6 +237,8 @@ nginx.conf
 ```
     server {
         location / {
+            # root   html;
+            # index  index.html index.htm;
             include /etc/nginx/naxsi.rules;
             proxy_pass http://127.0.0.1:8080;
             proxy_set_header X-Real-IP $remote_addr;
@@ -244,6 +246,7 @@ nginx.conf
             proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
     }}
 ```
+
 #### 6. 自訂基本規則
 
 ```bash
@@ -276,7 +279,22 @@ vim /etc/nginx/naxsi_core.rules
 MainRule "msg:demo " " rx:<script>"  "mz:ARGS " "s:$XSS:100" id:00123;
 ```
 
-啟動 web server 
+修改設定檔 `nginx.conf`
+
+```
+vim /etc/nginx/nginx.conf
+```
+
+在 `nginx.conf` 中新增一筆規則引用
+
+```
+http {
+    include       mime.types;
+    include /etc/nginx/naxsi_core.rules;
+}
+```
+
+#### 8. 開啟 web server 
 ```
 /tmp/start.sh
 ```
