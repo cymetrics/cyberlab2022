@@ -25,6 +25,20 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 /tmp/start.sh
 ```
 
+### 4. 用瀏覽器設定dvwa
+
+1. 用瀏覽器到<http://localhost/setup.php>後，用`Create/Reset Database`重設定Database
+2. 用瀏覽器到<http://localhost/security.php>，`Security Level`調整做`Low`
+
+### 5. 試SQL Injection
+
+用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1' or 1=1 #`
+
+### 6. 試XSS
+
+用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`
+
+
 ## Lab 2: ModSecurity
 
 ### 1. 切換到 Dockerfile 目錄
