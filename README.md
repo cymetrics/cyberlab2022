@@ -32,11 +32,14 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ### 5. 試SQL Injection
 
-用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1' or 1=1 #`
+1. 用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1`，會出現`id=1`使用者名稱。
+2. 用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1' or 1=1 #`，會出現全部使用者名稱。
+
 
 ### 6. 試XSS
 
-用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出cookie資訊。
+1. 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`Arik`，結果會顯示`Hello Arik`。
+2. 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出cookie資訊。
 
 
 ## Lab 2: ModSecurity
