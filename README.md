@@ -2,13 +2,13 @@
 
 ## Lab 1:
 
-#### 1. 切換到 Dockerfile 目錄
+### 1. 切換到 Dockerfile 目錄
 
 ```bash
 cd ./demo/dvwa
 ```
 
-#### 2. Run Docker image
+### 2. Run Docker image
 
 ```bash
 docker build -t cyberlab .
@@ -19,7 +19,7 @@ or
 ```bash
 docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin/bash
 ```
-#### 3. 開啟 web server 
+### 3. 開啟 web server
 
 ```bash
 /tmp/start.sh
@@ -27,7 +27,25 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ## Lab 2: ModSecurity
 
-#### 1. 安裝 ModSecurity
+
+### 1. 切換到 Dockerfile 目錄
+
+```bash
+cd ./demo/dvwa_modsecurity
+```
+
+### 2. Run Docker image
+
+```bash
+docker build -t cyberlab_modsec .
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it cyberlab_modsec /bin/bash
+```
+or 
+
+```bash
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:mod-sec /bin/bash
+```
+### 4. 安裝 ModSecurity
 
 安裝前更新一下
 
@@ -65,7 +83,7 @@ SecRuleEngine 設定為 On
 SecRuleEngine On
 ```
 
-#### 2. 自訂規則
+### 5. 自訂規則
 
 ```bash
 vim /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
@@ -93,7 +111,7 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 # IncludeOptional /usr/share/modsecurity-crs/*.load
 ```
 
-#### 3. 移除版本資訊
+### 6. 移除版本資訊
 
 修改設定檔案 `security.conf`
 
@@ -108,7 +126,7 @@ ServerSignature Off
 ServerTokens Prod
 ```
 
-#### 4. 開啟 web server 
+#### 7. 開啟 web server
 ```
 /tmp/start.sh
 ```
