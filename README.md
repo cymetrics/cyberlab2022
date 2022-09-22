@@ -5,7 +5,7 @@
 #### 1. 切換到 Dockerfile 目錄
 
 ```bash
-cd /home/user/Desktop/demo/dvwa
+cd ./demo/dvwa
 ```
 
 #### 2. Run Docker image
