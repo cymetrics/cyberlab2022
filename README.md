@@ -154,6 +154,9 @@ ServerSignature Off
 
 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出`404 Not Found`，無版本資訊。
 
+### 11. 練習
+
+保護`SQL Injection`例。
 
 ## Lab 3: NAXSI
 
