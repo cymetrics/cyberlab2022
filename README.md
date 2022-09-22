@@ -27,7 +27,6 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ## Lab 2: ModSecurity
 
-
 ### 1. 切換到 Dockerfile 目錄
 
 ```bash
@@ -45,7 +44,8 @@ or
 ```bash
 docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:mod-sec /bin/bash
 ```
-### 4. 安裝 ModSecurity
+
+### 3. 安裝 ModSecurity
 
 安裝前更新一下
 
@@ -83,7 +83,7 @@ SecRuleEngine 設定為 On
 SecRuleEngine On
 ```
 
-### 5. 自訂規則
+### 4. 自訂規則
 
 ```bash
 vim /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
@@ -111,7 +111,7 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 # IncludeOptional /usr/share/modsecurity-crs/*.load
 ```
 
-### 6. 移除版本資訊
+### 5. 移除版本資訊
 
 修改設定檔案 `security.conf`
 
@@ -126,14 +126,32 @@ ServerSignature Off
 ServerTokens Prod
 ```
 
-#### 7. 開啟 web server
+#### 6. 開啟 web server
 ```
 /tmp/start.sh
 ```
 
 ## Lab 3: NAXSI
 
-#### 1. 安裝 nginx + naxsi
+### 1. 切換到 Dockerfile 目錄
+
+```bash
+cd ./demo/dvwa_naxsi
+```
+
+### 2. Run Docker image
+
+```bash
+docker build -t cyberlab_naxsi .
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it cyberlab_naxsi /bin/bash
+```
+or 
+
+```bash
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:naxsi /bin/bash
+```
+
+### 3. 安裝 nginx + naxsi
 
 建立安裝目錄
 
@@ -197,13 +215,13 @@ make && make install
 mkdir /var/lib/nginx/ && mkdir /var/lib/nginx/body
 ```
 
-#### 2. 設置核心規則
+### 4. 設置核心規則
 
 ```bash
 cp /tmp/nginx_naxsi/naxsi-1.3/naxsi_config/naxsi_core.rules /etc/nginx/naxsi_core.rules
 ```
 
-#### 3. 建立錯誤頁面
+### 5. 建立錯誤頁面
 
 ```
 vim /var/www/html/error.html
@@ -224,7 +242,7 @@ vim /var/www/html/error.html
 </html>
 ```
 
-#### 4. 設定 proxy server (apache)
+### 6. 設定 proxy server (apache)
 
 修改 `000-default.conf`
 ```bash
@@ -249,7 +267,7 @@ Listen 改為 `8080`
 Listen 8080
 ```
 
-#### 5. 設定 proxy server (nginx)
+### 7. 設定 proxy server (nginx)
 
 ```
 vim /etc/nginx/nginx.conf
@@ -270,7 +288,7 @@ nginx.conf
     }}
 ```
 
-#### 6. 自訂基本規則
+#### 8. 自訂基本規則
 
 ```bash
 vim /etc/nginx/naxsi.rules
@@ -288,7 +306,7 @@ CheckRule "$SQL >= 90" BLOCK;
 CheckRule "$XSS >= 90" BLOCK;
 ```
 
-#### 7. 自訂核心規則
+#### 9. 自訂核心規則
 
 修改 `naxsi_core.rules`
 
@@ -317,7 +335,7 @@ http {
 }
 ```
 
-#### 8. 開啟 web server 
+#### 10. 開啟 web server
 ```
 /tmp/start.sh
 ```
