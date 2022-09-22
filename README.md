@@ -41,23 +41,11 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ## Lab 2: ModSecurity
 
-### 1. 切換到 Dockerfile 目錄
+### 1. 完成 Lab 1 設定
 
-```bash
-cd ./demo/dvwa_modsecurity
-```
+### 2. 關`/tmp/start.sh`
 
-### 2. Run Docker image
-
-```bash
-docker build -t cyberlab_modsec .
-docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it cyberlab_modsec /bin/bash
-```
-or 
-
-```bash
-docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:mod-sec /bin/bash
-```
+用`ctrl+c`關程式
 
 ### 3. 安裝 ModSecurity
 
