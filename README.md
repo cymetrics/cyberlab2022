@@ -36,7 +36,7 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ### 6. 試XSS
 
-用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`
+用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出cookie資訊。
 
 
 ## Lab 2: ModSecurity
@@ -132,6 +132,11 @@ ServerTokens Prod
 ```
 /tmp/start.sh
 ```
+
+### 6. 試XSS保護成果
+
+用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出404 Not Found。
+
 
 ## Lab 3: NAXSI
 
