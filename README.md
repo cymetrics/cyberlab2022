@@ -48,7 +48,7 @@ docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin
 
 ### 2. 關`/tmp/start.sh`
 
-用`ctrl+c`關程式
+用`ctrl+c`關程式。
 
 ### 3. 安裝 ModSecurity
 
@@ -125,7 +125,11 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 
 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出`404 Not Found`,有版本資訊`Apache/2... (Ubuntu) Server`。主機版本資訊應該保護，所以需要移除版本資訊。
 
-### 7. 移除版本資訊
+### 7. 關`/tmp/start.sh`
+
+用`ctrl+c`關程式。
+
+### 8. 移除版本資訊
 
 修改設定檔案 `security.conf`
 
@@ -140,12 +144,12 @@ ServerSignature Off
 ServerTokens Prod
 ```
 
-### 8. 開啟 web server
+### 9. 開啟 web server
 ```
 /tmp/start.sh
 ```
 
-### 9. 試XSS保護成果
+### 10. 試XSS保護成果
 
 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出`404 Not Found`，無版本資訊。
 
