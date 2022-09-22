@@ -137,11 +137,12 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 vim /etc/apache2/conf-enabled/security.conf
 ```
 
-ServerSignature 改成 `off` ServerTokens 改成 `Prod`
+`ServerTokens` 改成 `Prod`，`ServerSignature` 改成 `off`。
 
 ```
-ServerSignature Off
 ServerTokens Prod
+# ...
+ServerSignature Off
 ```
 
 ### 9. 開啟 web server
