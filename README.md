@@ -281,7 +281,7 @@ vim /etc/nginx/naxsi_core.rules
 新增一筆規則
 
 ```
-MainRule "msg:demo " " rx:<script>"  "mz:ARGS " "s:$XSS:100" id:00123;
+MainRule "msg:demo" "rx:<script>" "mz:ARGS" "s:$XSS:100" id:00123;
 ```
 
 修改設定檔 `nginx.conf`
