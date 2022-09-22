@@ -369,7 +369,7 @@ http {
 
 ## Command cheatsheet
 
-relaod nginx
+reload nginx
 
 `/usr/sbin/nginx -s reload`
 
