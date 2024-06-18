@@ -2,13 +2,13 @@
 
 ## Lab 1:
 
-#### 1. 切換到 Dockerfile 目錄
+### 1. 切換到 Dockerfile 目錄
 
 ```bash
-cd /home/user/Desktop/demo/dvwa
+cd ./demo/dvwa
 ```
 
-#### 2. Run Docker image
+### 2. Run Docker image
 
 ```bash
 docker build -t cyberlab .
@@ -19,15 +19,38 @@ or
 ```bash
 docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:dvwa /bin/bash
 ```
-#### 3. 開啟 web server 
+### 3. 開啟 web server
 
 ```bash
 /tmp/start.sh
 ```
 
+### 4. 用瀏覽器設定dvwa
+
+1. 用瀏覽器到<http://localhost/setup.php>後，用`Create/Reset Database`重設定Database
+2. 用瀏覽器到<http://localhost/security.php>，`Security Level`調整做`Low`
+
+### 5. 試SQL Injection
+
+1. 用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1`，會出現`id=1`使用者名稱。
+2. 用瀏覽器到 <http://localhost/vulnerabilities/sqli/>，輸入`1' or 1=1 #`，會出現全部使用者名稱。
+
+
+### 6. 試XSS
+
+1. 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`Arik`，結果會顯示`Hello Arik`。
+2. 用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出cookie資訊。
+
+
 ## Lab 2: ModSecurity
 
-#### 1. 安裝 ModSecurity
+### 1. 完成 Lab 1 設定
+
+### 2. 關`/tmp/start.sh`
+
+用`ctrl+c`關程式。
+
+### 3. 安裝 ModSecurity
 
 安裝前更新一下
 
@@ -65,7 +88,7 @@ SecRuleEngine 設定為 On
 SecRuleEngine On
 ```
 
-#### 2. 自訂規則
+### 4. 自訂規則
 
 ```bash
 vim /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
@@ -93,7 +116,20 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 # IncludeOptional /usr/share/modsecurity-crs/*.load
 ```
 
-#### 3. 移除版本資訊
+### 5. 開啟 web server
+```
+/tmp/start.sh
+```
+
+### 6. 試XSS保護成果
+
+用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出`404 Not Found`,有版本資訊`Apache/2... (Ubuntu) Server`。主機版本資訊應該保護，所以需要移除版本資訊。
+
+### 7. 關`/tmp/start.sh`
+
+用`ctrl+c`關程式。
+
+### 8. 移除版本資訊
 
 修改設定檔案 `security.conf`
 
@@ -101,21 +137,48 @@ IncludeOptional /usr/share/modsecurity-crs/rules/REQUEST-1001-DEMO.conf
 vim /etc/apache2/conf-enabled/security.conf
 ```
 
-ServerSignature 改成 `off` ServerTokens 改成 `Prod`
+`ServerTokens` 改成 `Prod`，`ServerSignature` 改成 `off`。
 
 ```
-ServerSignature Off
 ServerTokens Prod
+# ...
+ServerSignature Off
 ```
 
-#### 4. 開啟 web server 
+### 9. 開啟 web server
 ```
 /tmp/start.sh
 ```
 
+### 10. 試XSS保護成果
+
+用瀏覽器到 <http://localhost/vulnerabilities/xss_r/>，輸入`<script>alert(document.cookie)</script>`，結果會跳出`404 Not Found`，無版本資訊。
+
+### 11. 練習
+
+保護`SQL Injection`例。
+
 ## Lab 3: NAXSI
 
-#### 1. 安裝 nginx + naxsi
+### 1. 切換到 Dockerfile 目錄
+
+```bash
+cd ./demo/dvwa_naxsi
+```
+
+### 2. Run Docker image
+
+```bash
+docker build -t cyberlab_naxsi .
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it cyberlab_naxsi /bin/bash
+```
+or 
+
+```bash
+docker run -v $(pwd)/mount:/tmp/mount -p 80:80 -it zet235/cyberlab2022:naxsi /bin/bash
+```
+
+### 3. 安裝 nginx + naxsi
 
 建立安裝目錄
 
@@ -179,13 +242,13 @@ make && make install
 mkdir /var/lib/nginx/ && mkdir /var/lib/nginx/body
 ```
 
-#### 2. 設置核心規則
+### 4. 設置核心規則
 
 ```bash
 cp /tmp/nginx_naxsi/naxsi-1.3/naxsi_config/naxsi_core.rules /etc/nginx/naxsi_core.rules
 ```
 
-#### 3. 建立錯誤頁面
+### 5. 建立錯誤頁面
 
 ```
 vim /var/www/html/error.html
@@ -206,7 +269,7 @@ vim /var/www/html/error.html
 </html>
 ```
 
-#### 4. 設定 proxy server (apache)
+### 6. 設定 proxy server (apache)
 
 修改 `000-default.conf`
 ```bash
@@ -231,7 +294,7 @@ Listen 改為 `8080`
 Listen 8080
 ```
 
-#### 5. 設定 proxy server (nginx)
+### 7. 設定 proxy server (nginx)
 
 ```
 vim /etc/nginx/nginx.conf
@@ -252,7 +315,7 @@ nginx.conf
     }}
 ```
 
-#### 6. 自訂基本規則
+#### 8. 自訂基本規則
 
 ```bash
 vim /etc/nginx/naxsi.rules
@@ -270,7 +333,7 @@ CheckRule "$SQL >= 90" BLOCK;
 CheckRule "$XSS >= 90" BLOCK;
 ```
 
-#### 7. 自訂核心規則
+#### 9. 自訂核心規則
 
 修改 `naxsi_core.rules`
 
@@ -299,14 +362,14 @@ http {
 }
 ```
 
-#### 8. 開啟 web server 
+#### 10. 開啟 web server
 ```
 /tmp/start.sh
 ```
 
 ## Command cheatsheet
 
-relaod nginx
+reload nginx
 
 `/usr/sbin/nginx -s reload`
 
