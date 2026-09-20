@@ -1,6 +1,0 @@
-SecRulesEnabled;
-DeniedUrl "/error.html";
-
-## Check Naxsi rules
-CheckRule "$SQL >= 90" BLOCK;
-CheckRule "$XSS >= 90" BLOCK;
