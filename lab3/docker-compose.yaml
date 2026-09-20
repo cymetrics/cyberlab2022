@@ -1,0 +1,25 @@
+services:
+  dvwa:
+    build:
+      context: ../dvwa
+      dockerfile: Dockerfile
+    command: /opt/entrypoint.sh
+
+  naxsi:
+    build:
+      context: ../naxsi
+      dockerfile: Dockerfile
+    depends_on:
+      - dvwa
+      - db
+    ports:
+      - 80:80
+
+  db:
+    image: docker.io/library/mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=dvwa
+      - MYSQL_DATABASE=dvwa
+      - MYSQL_USER=dvwa
+      - MYSQL_PASSWORD=p@ssw0rd
+    restart: unless-stopped

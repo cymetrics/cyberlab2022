@@ -1,0 +1,16 @@
+services:
+  dvwa:
+    build:
+      context: ../dvwa
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+
+  db:
+    image: docker.io/library/mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=dvwa
+      - MYSQL_DATABASE=dvwa
+      - MYSQL_USER=dvwa
+      - MYSQL_PASSWORD=p@ssw0rd
+    restart: unless-stopped
